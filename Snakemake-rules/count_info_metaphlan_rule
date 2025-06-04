@@ -1,0 +1,15 @@
+rule count_info_metaphlan:
+    input:
+        inputPath="{prefix}/{sample}/Bacteria/Metaphlan/{sample}_Metaphlan_extractInfo_blast.txt"
+    output:
+        outputPath=temp("{prefix}/{sample}/Bacteria/Metaphlan/{sample}_Metaphlan_count1.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}_Metaphlancount.log"
+    params:
+        script = config["script_pip"]["count_metaphlan"],
+        db_metaphlan = config["general_informations"]["DATABASE-Metaphlan_Genes"]
+    run:
+       if (os.stat(input.inputPath).st_size == 0 ):
+         shell("touch {output.outputPath}")
+       else:
+         shell('bash {params.script} -i {input.inputPath} -o {output.outputPath} -g {params.db_metaphlan} | tee -a {log}')

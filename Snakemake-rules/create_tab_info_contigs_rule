@@ -1,0 +1,12 @@
+rule create_tab_info_contigs:
+    input:
+        inputPath="{prefix}/{sample}/{fungi_parasite}/{sample}_{fungi_parasite}_extractInfo_vir_fun_par.txt"
+    output:
+        outputPath="{prefix}/{sample}/{fungi_parasite}/{sample}_{fungi_parasite}_tab_info_contigs.csv"
+    log:
+        "{prefix}/{sample}/logs/{sample}_{fungi_parasite}_tab_info_contigs.log"
+    params:
+        script = config["script_pip"]["create_tab_info_contigs"],
+        list_contigs = lambda w: config["general_informations"]["LIST_CONTIGS-{}".format(w.fungi_parasite)]
+    shell:
+        '{params.script} -i1 {input.inputPath} -i2 {params.list_contigs} -o {output.outputPath}  | tee -a {log}'

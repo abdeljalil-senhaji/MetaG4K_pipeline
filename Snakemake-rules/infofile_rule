@@ -1,0 +1,12 @@
+rule infofile:
+    input:
+        R1 = "{prefix}/{sample}/{sample}_not_hg38_merge.R1.fastq.gz",
+        reportK = "{prefix}/{sample}/{sample}.report.txt"
+    output:
+        temp("{prefix}/{sample}/{sample}.info.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}.infofile.log"
+    params:
+        script = config["script_pip"]["infofile"]
+    shell:
+        'python3 {params.script} {input.R1} {input.reportK} {output} | tee -a {log}'

@@ -1,0 +1,14 @@
+rule count_info:
+    input:
+        inputPath="{prefix}/{sample}/{bac_kingdom}/{sample}_{bac_kingdom}_extractInfo_vir_fun_par.txt"
+    output:
+        outputPath=temp("{prefix}/{sample}/{bac_kingdom}/{sample}_{bac_kingdom}_count.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}_{bac_kingdom}__count.log"
+    params:
+        script = config["script_pip"]["count"]
+    run:
+       if (os.stat(input.inputPath).st_size == 0 ):
+         shell("touch {output.outputPath}")
+       else:
+         shell('bash {params.script} -i {input.inputPath} -o {output.outputPath}  | tee -a {log}')

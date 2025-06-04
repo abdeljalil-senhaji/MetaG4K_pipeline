@@ -1,0 +1,18 @@
+rule dedupe:
+    input:
+        R1 = "{prefix}/{sample}/{sample}_R1_001.fastq.gz",
+        R2 = "{prefix}/{sample}/{sample}_R2_001.fastq.gz"
+        #R1 = "{prefix}/{sample}/{sample}_R1_001_repair.fastq.gz",
+        #R2 = "{prefix}/{sample}/{sample}_R2_001_repair.fastq.gz"
+    output:
+        R1 = temp("{prefix}/{sample}/{sample}.R1_dedupe.fastq.gz"),
+        R2 = temp("{prefix}/{sample}/{sample}.R2_dedupe.fastq.gz")
+    log:
+        "{prefix}/{sample}/logs/{sample}.dedupe.log"
+    params:
+        dedupe_qin = config["dedupe"]["OPTIONS"]
+    shell:
+        'java -ea -Xmx16g -Xms16g -XX:ParallelGCThreads=10 -cp /usr/share/bbmap/java clump.Clumpify {params.dedupe_qin} \
+            in1={input.R1} in2={input.R2} \
+            out1={output.R1} out2={output.R2} \
+            dedupe | tee -a {log}'

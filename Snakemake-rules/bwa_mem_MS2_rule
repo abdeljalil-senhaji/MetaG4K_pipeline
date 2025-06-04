@@ -1,0 +1,14 @@
+rule bwa_mem_MS2:
+    input:
+        R1 = "{prefix}/{sample}/{sample}_not_hg38.R1.fastq.gz",
+        R2 = "{prefix}/{sample}/{sample}_not_hg38.R2.fastq.gz"
+    output:
+        temp("{prefix}/{sample}/{sample}_MS2.sam")
+    log:
+        "{prefix}/{sample}/logs/{sample}_MS2.bwa_mem.log"
+    params:
+        reference_MS2=config["general_informations"]["FASTA_FILE_MS2"],
+        bwa_mem_MS2_options=config["bwa_mem_MS2"]["OPTIONS"]
+    shell:
+        'docker_wrapper -c \"bwa mem {params.bwa_mem_MS2_options} {params.reference_MS2} {input.R1} {input.R2}\" -o {output} 2>&1 | tee -a {log}'
+

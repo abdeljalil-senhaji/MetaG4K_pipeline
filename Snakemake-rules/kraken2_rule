@@ -1,0 +1,22 @@
+rule kraken2:
+    input:
+        R1 = "{prefix}/{sample}/{sample}_not_hg38_merge.R1.fastq.gz",
+        R2 = "{prefix}/{sample}/{sample}_not_hg38_merge.R2.fastq.gz"
+    output:
+        outputK = temp("{prefix}/{sample}/{sample}.output.txt"),
+        reportK = "{prefix}/{sample}/{sample}.report.txt",
+        clseqs1= temp("{prefix}/{sample}/{sample}.clseqs_1.fastq"),
+        clseqs2 = temp("{prefix}/{sample}/{sample}.clseqs_2.fastq"),
+        unclseqs1= temp("{prefix}/{sample}/{sample}.unclseqs_1.fq"),
+        unclseqs2 = temp("{prefix}/{sample}/{sample}.unclseqs_2.fq")
+    log:
+        "{prefix}/{sample}/logs/{sample}.kraken2.log"
+    params:
+        kraken2_options = config["kraken2"]["OPTIONS"],
+        kraken2_db = config["general_informations"]["KRAKEN2_DATABASE"]
+    shell:
+        'kraken2 --db {params.kraken2_db} {params.kraken2_options} \
+        --report {output.reportK} --output {output.outputK} \
+        --classified-out {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.clseqs#.fastq \
+        --unclassified-out {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.unclseqs#.fq --memory-mapping \
+        {input.R1} {input.R2} | tee -a {log}'

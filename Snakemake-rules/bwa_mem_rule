@@ -1,0 +1,14 @@
+rule bwa_mem:
+    input:
+        R1 = "{prefix}/{sample}/{sample}R1_paired.fq.gz",
+        R2 = "{prefix}/{sample}/{sample}R2_paired.fq.gz"
+    output:
+        temp("{prefix}/{sample}/{sample}.sam")
+    log:
+        "{prefix}/{sample}/logs/{sample}.bwa_mem.log"
+    params:
+        reference=config["general_informations"]["FASTA_FILE"],
+        bwa_mem_options=config["bwa_mem"]["OPTIONS"]
+    shell:
+        'docker_wrapper -c \"bwa mem {params.bwa_mem_options} {params.reference} {input.R1} {input.R2}\" -o {output} 2>&1 | tee -a {log}'
+

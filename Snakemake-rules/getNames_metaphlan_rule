@@ -1,0 +1,16 @@
+rule getNames_metaphlan:
+    input:
+        counting = "{prefix}/{sample}/Bacteria/Metaphlan/{sample}_Metaphlan_count1.txt"
+    output:
+        count = "{prefix}/{sample}/Bacteria/Metaphlan/{sample}_Metaphlan_NameBact.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_NameBact.log"
+    params:
+        script = config["script_pip"]["getNames_metaphlan"],
+        bact_options = config["getNames_metaphlan"]["OPTIONS"],
+        sqlite = config["general_informations"]["SQLITE"]
+    run:
+        if (os.stat(input.counting).st_size == 0):
+          shell("touch {output.count}")
+        else:
+          shell('python3 {params.script} -i {input.counting} -o {output.count} -n {params.sqlite} {params.bact_options}  | tee -a {log}')

@@ -1,0 +1,63 @@
+import os
+
+rule get_fasta_final_bac:
+    input:
+        #conserved = "{prefix}/{sample}/{taxkingdom}/{sample}.conserved.txt",
+        #clseqs1 = "{prefix}/{sample}/{sample}.clseqs_1.fastq",
+        #clseqs2 = "{prefix}/{sample}/{sample}.clseqs_2.fastq"
+        #conserved = "{prefix}/{sample}/{bac_kingdom}/{sample}_{bac_kingdom}_extractInfo_vir_fun_par.txt",
+        conserved= "{prefix}/{sample}/Bacteria/{dbnames}/{sample}_{dbnames}_extractInfo_blast.txt",
+        clseqs1= "{prefix}/{sample}/{sample}.clseqs_1.fastq",
+        clseqs2 = "{prefix}/{sample}/{sample}.clseqs_2.fastq"
+    output:
+        #temp("{prefix}/{sample}/{taxkingdom}/{sample}.fastarecupDone")
+        temp("{prefix}/{sample}/Bacteria/{dbnames}/{sample}_{dbnames}.fastarecupDone")
+    log:
+        "{prefix}/{sample}/logs/{sample}_get_fasta_final_bac.log"
+    run:
+        if (os.stat(input.conserved).st_size == 0):
+          shell("touch {output}")
+        else:
+          shell(
+            """
+            mkdir -p {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta
+            cat {input.conserved} |awk -v pathF="{wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta" -F"[\t]" '$10~/^1/ {{print $1" "$8 > pathF"/map1.fa" ; print $1 > pathF"/1.fa" }}'
+            cat {input.conserved} |awk -v pathF="{wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta" -F"[\t]" '$10~/^2/ {{print $1" "$8 > pathF"/map2.fa" ; print $1 > pathF"/2.fa" }}'
+            if [[ -s pathF"/map1.fa"  &&  -s pathF"/map2.fa"  &&  -s pathF"/1.fa"  &&  -s pathF"/2.fa" ]];
+            then
+              temp_file=$(mktemp)
+              temp_fasta=$(mktemp)
+              cat {input.clseqs1}  | seqkit grep -f {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fa > $temp_file || true
+              seqkit fq2fa $temp_file -o $temp_fasta
+              if [[ -s $temp_fasta ]];
+              then
+                cp $temp_fasta {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fasta
+              else
+                touch {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fasta
+              fi
+              temp_file1=$(mktemp)
+              temp_fasta1=$(mktemp)
+              cat {input.clseqs2}  | seqkit grep -f {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fa > $temp_file1 || true
+              seqkit fq2fa $temp_file1 -o $temp_fasta1
+              if [[ -s $temp_fasta1 ]];
+              then
+                cp $temp_fasta1 {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fasta
+              else
+                touch {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fasta
+              fi
+              cat {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fasta | paste - - | cut -c2- |sort > {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted1.fasta
+              cat {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fasta | paste - - | cut -c2- |sort > {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted2.fasta
+              sort {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/map1.fa > {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted1.fa
+              sort {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/map2.fa > {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted2.fa
+              join -11 -21 {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted1.fasta {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted1.fa > {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fasta
+              join -11 -21 {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted2.fasta {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted2.fa > {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fasta
+              cat {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fasta |awk -v pathF="{wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/" '{{print ">"$1" "$2" "$3"\\n"$4 > pathF"/"$5".fasta"}}'
+              cat {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fasta |awk -v pathF="{wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/" '{{print ">"$1" "$2" "$3"\\n"$4 >> pathF"/"$5".fasta"}}'
+              rm {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fasta {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fasta {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/1.fa {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/2.fa
+              rm {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/map1.fa {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/map2.fa {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted1.fa {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted2.fa
+              rm {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted1.fasta {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}fasta/sorted2.fasta
+              touch {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}_{wildcards.dbnames}.fastarecupDone
+            else
+              touch {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}_{wildcards.dbnames}.fastarecupDone
+            fi
+            """)

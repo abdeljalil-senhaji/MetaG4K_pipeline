@@ -1,0 +1,17 @@
+rule trimmomatic:
+    input:
+        R1 = "{prefix}/{sample}/{sample}.R1_dedupe.fastq.gz",
+        R2 = "{prefix}/{sample}/{sample}.R2_dedupe.fastq.gz"
+    output:
+        R1 = temp("{prefix}/{sample}/{sample}R1_paired.fq.gz"),
+        R2 = temp("{prefix}/{sample}/{sample}R2_paired.fq.gz"),
+        R1u = temp("{prefix}/{sample}/{sample}R1_unpaired.fq.gz"),
+        R2u = temp("{prefix}/{sample}/{sample}R2_unpaired.fq.gz")
+    log:
+        "{prefix}/{sample}/logs/{sample}.trimmomatic.log"
+    params:
+        trimmo_options = config["trimmomatic"]["OPTIONS"],
+        trimmo_type = config["trimmomatic"]["TYPE"]
+    shell:
+        'java -Xmx2800m -Xms2800m -jar /usr/share/java/trimmomatic-0.36.jar {params.trimmo_type} {input.R1} {input.R2} {output.R1} {output.R1u} {output.R2} {output.R2u} {params.trimmo_options} | tee -a {log}'
+

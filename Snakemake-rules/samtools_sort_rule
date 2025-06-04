@@ -1,0 +1,12 @@
+rule samtools_sort:
+    input:
+        "{prefix}/{sample}/{sample}_unmapped.bam"
+    output:
+        temp("{prefix}/{sample}/{sample}.ordered.bam")
+    log:
+        "{prefix}/{sample}/logs/{sample}.samtools_sort.log"
+    params:
+        samtools_sort_options=config["samtools_sort"]["OPTIONS"]
+    shell:
+        'docker_wrapper -c \"samtools sort {params.samtools_sort_options} -n -o {output} {input}" \ 2>&1 | tee -a {log}'
+

@@ -1,0 +1,12 @@
+rule samtools_merge:
+    input:
+        bam1 = "{prefix}/{sample}/{sample}.MS2_ordered.bam",
+        bam2 = "{prefix}/{sample}/{sample}.T1_ordered.bam"
+    output:
+        temp("{prefix}/{sample}/{sample}_mergeBam.bam")
+    log:
+        "{prefix}/{sample}/logs/{sample}_samtools_merge.log"
+    params:
+        samtools_merge_options = config["samtools_merge"]["OPTIONS"]
+    shell:
+        "docker_wrapper -c \"samtools merge {output} {input.bam1} {input.bam2}  {params.samtools_merge_options} \" 2>&1 | tee -a {log}"

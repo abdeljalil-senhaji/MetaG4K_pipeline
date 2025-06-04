@@ -1,0 +1,17 @@
+rule coverage_Argos_info:
+    input:
+        count = "{prefix}/{sample}/Bacteria/{argosSilva}/{sample}_{argosSilva}_NameArgosSilva16S.txt",
+        extractInfo = "{prefix}/{sample}/Bacteria/{argosSilva}/{sample}_{argosSilva}_extractInfo_blast.txt"
+    output:
+        allInfoCovrage = "{prefix}/{sample}/Bacteria/{argosSilva}/{sample}_{argosSilva}_allInfoCovrage.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_{argosSilva}_allInfoCovrage.log"
+    params:
+        script = config["script_pip"]["script_coverage_info"],
+        options = config["coverage_Argos_info"]["OPTIONS"],
+        sqlite = config["general_informations"]["SQLITE"]
+    run:
+        if (os.stat(input.count).st_size == 0 and os.stat(input.extractInfo).st_size == 0):
+          shell("touch {output.allInfoCovrage}")
+        else:
+          shell('python3 {params.script} -e {input.extractInfo} -g  {input.count} -m 5  -o {output.allInfoCovrage} -n {params.sqlite} | tee -a {log} ')

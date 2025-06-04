@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <style type="text/css">
+                .othertable {
+                border-collapse: collapse;
+                width:50%;
+                }
+                .othertable th, .othertable td {
+                padding: 5px 0px 5px 10px;
+                border: 1px solid black;
+                }
+                th {
+                background-color: #f5f5f5;
+                }
+      #defaulthidden {
+        display:none;
+      }
+      #defaulthidden1 {
+        display:none;
+      }
+      #defaulthidden2 {
+        display:none;
+      }
+      #defaulthidden3 {
+        display:none;
+      }
+      #defaulthidden4 {
+        display:none;
+      }
+      #defaulthidden5 {
+        display:none;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script type="text/javascript">
+
+<!----------------------------------speciesTable function js Viruses--------------------------------------->
+    $(document).ready(function() {
+      $('#speciesTable').DataTable(
+        {"order": [[ 1, "desc" ]],
+        dom: 'Brtip',
+        buttons: [
+            {extend: 'csvHtml5',
+            title: 'Viruses{{sampleName}}',
+            fieldBoundary:'',
+            customize: function (csv) {
+            var csvRows = csv.split('\n');
+            csvRows[0] = ',Verified Reads(Raw),Verified Reads(RPM)'
+            return csvRows.join('\n');
+            }},
+            'copy'],
+            "rowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+            if ( aData[4] <= 0 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#FF6666');
+            }
+            if ( aData[4] > 2 && aData[4] < 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#D0FF89');
+            }
+            if ( aData[4] >= 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#99FF99');
+            }
+
+            }});
+      })
+<!----------------------------------speciesTable1 function js Fungi--------------------------------------->
+    $(document).ready(function() {
+      $('#speciesTable1').DataTable(
+        {"order": [[ 1, "desc" ]],
+        dom: 'Brtip',
+        buttons: [
+            {extend: 'csvHtml5',
+            title: 'Fungi{{sampleName}}',
+            fieldBoundary:'',
+            customize: function (csv) {
+            var csvRows = csv.split('\n');
+            csvRows[0] = ',Verified Reads(Raw),Verified Reads(RPM)'
+            return csvRows.join('\n');
+            }},
+            'copy'],
+            "rowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+            if ( aData[4] <= 0 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#FF6666');
+            }
+            if ( aData[4] > 2 && aData[4] < 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#D0FF89');
+            }
+            if ( aData[4] >= 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#99FF99');
+            }
+
+            }});
+      })
+<!----------------------------------speciesTable1 function js Parasite--------------------------------------->
+    $(document).ready(function() {
+      $('#speciesTable3').DataTable(
+        {"order": [[ 1, "desc" ]],
+        dom: 'Brtip',
+        buttons: [
+            {extend: 'csvHtml5',
+            title: 'Parasite{{sampleName}}',
+            fieldBoundary:'',
+            customize: function (csv) {
+            var csvRows = csv.split('\n');
+            csvRows[0] = ',Verified Reads(Raw),Verified Reads(RPM)'
+            return csvRows.join('\n');
+            }},
+            'copy'],
+            "rowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+            if ( aData[4] <= 0 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#FF6666');
+            }
+            if ( aData[4] > 2 && aData[4] < 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#D0FF89');
+            }
+            if ( aData[4] >= 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#99FF99');
+            }
+
+            }});
+      })
+<!----------------------------------speciesTable4 function js Argos--------------------------------------->
+    $(document).ready(function() {
+      $('#speciesTable4').DataTable(
+        {"order": [[ 1, "desc" ]],
+        dom: 'Brtip',
+        buttons: [
+            {extend: 'csvHtml5',
+            title: 'Argos{{sampleName}}',
+            fieldBoundary:'',
+            customize: function (csv) {
+            var csvRows = csv.split('\n');
+            csvRows[0] = ',Verified Reads(Raw),Verified Reads(RPM)'
+            return csvRows.join('\n');
+            }},
+            'copy'],
+            "rowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+            if ( aData[4] <= 0 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#FF6666');
+            }
+            if ( aData[4] > 2 && aData[4] < 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#D0FF89');
+            }
+            if ( aData[4] >= 5 )
+            {
+                $('td:lt(3)', nRow).css('background-color', '#99FF99');
+            }
+
+            }});
+      })
+<!----------------------------------speciesTable5 function js Silva--------------------------------------->
+
+<!----------------------------------speciesTable2 function js Bacteria--------------------------------------->
+      $(document).ready(function() {
+        $('#speciesTable2').DataTable(
+          {
+          "order": [[1,"desc"]],
+          "columnDefs": [{"targets": [ 4 ],"visible": false,"searchable": false}],
+          dom: 'Brtip',
+          buttons: [
+              {extend: 'csvHtml5',
+              title: 'Bacteria{{sampleName}}',
+              fieldBoundary:'',
+              customize: function (csv) {
+              var csvRows = csv.split('\n');
+              csvRows[0] = ',Verified Reads,Unique Hit,Genus'
+              return csvRows.join('\n');
+              }},
+              'copy']});
+        })
+<!----------------------------------------genusTableVir function js ---------------------------------------------->
+        $(document).ready(function() {
+          $('#genusTableVir').DataTable(
+            {"order": [[ 1, "desc" ]],
+            dom: 'frtip',
+          });
+        });
+        $(document).ready(function() {
+          $('#genusTableFungi').DataTable(
+            {"order": [[ 1, "desc" ]],
+            dom: 'frtip',
+          });
+        });
+        $(document).ready(function() {
+          $('#genusTablePara').DataTable(
+            {"order": [[ 1, "desc" ]],
+            dom: 'frtip',
+          });
+        });
+        $(document).ready(function() {
+          $('#genusTableArgos').DataTable(
+            {"order": [[ 1, "desc" ]],
+            dom: 'frtip',
+          });
+        });
+        $(document).ready(function() {
+          $('#genusTable').DataTable(
+            {"order": [[ 1, "desc" ]],
+            dom: 'frtip',
+          });
+        });
+    </script>
+<!----------------------------------------Virus function js ---------------------------------------------->
+    {% for virusToShow in listOfVirusesToShow %}
+    <script>
+    $(document).ready(function() {
+      $('#speciesTable').on('mouseenter','#toggle_{{virusToShow.VirusID}}',function() {
+        $( "#img_{{virusToShow.VirusID}}" ).show();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable').on('mouseleave','#toggle_{{virusToShow.VirusID}}',function() {
+        $( "#img_{{virusToShow.VirusID}}" ).hide();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable').on('mousedown','#toggle_{{virusToShow.VirusID}}',function() {
+        window.open('Viruses/Depth_Graphs_{{sampleName}}_Viruses/{{virusToShow.VirusName}}.png', '_blank')});
+    });
+    </script>
+    {% endfor %}
+<!----------------------------------------Fungi function js ---------------------------------------------->
+    {% for fungiToShow in listOfFungiToShow %}
+    <script>
+    $(document).ready(function() {
+      $('#speciesTable1').on('mouseenter','#toggle_{{fungiToShow.FungiID}}',function() {
+        $( "#img_{{fungiToShow.FungiID}}" ).show();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable1').on('mouseleave','#toggle_{{fungiToShow.FungiID}}',function() {
+        $( "#img_{{fungiToShow.FungiID}}" ).hide();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable1').on('mousedown','#toggle_{{fungiToShow.FungiID}}',function() {
+        window.open('Fungi/Depth_Graphs_{{sampleName}}_Fungi/{{fungiToShow.FungiName}}.png', '_blank')});
+    });
+    </script>
+    {% endfor %}
+<!----------------------------------------Parasite function js ---------------------------------------------->
+    {% for parasiteToShow in listOfParasiteToShow %}
+    <script>
+    $(document).ready(function() {
+      $('#speciesTable3').on('mouseenter','#toggle_{{parasiteToShow.ParasiteID}}',function() {
+        $( "#img_{{parasiteToShow.ParasiteID}}" ).show();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable3').on('mouseleave','#toggle_{{parasiteToShow.ParasiteID}}',function() {
+        $( "#img_{{parasiteToShow.ParasiteID}}" ).hide();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable3').on('mousedown','#toggle_{{parasiteToShow.ParasiteID}}',function() {
+        window.open('Parasite/Depth_Graphs_{{sampleName}}_Parasite/{{parasiteToShow.ParasiteName}}.png', '_blank')});
+    });
+    </script>
+    {% endfor %}
+<!----------------------------------------Argos function js ---------------------------------------------->
+    {% for argosToShow in listOfArgosToShow %}
+    <script>
+    $(document).ready(function() {
+      $('#speciesTable4').on('mouseenter','#toggle_{{argosToShow.ArgosID}}',function() {
+        $( "#img_{{argosToShow.ArgosID}}" ).show();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable4').on('mouseleave','#toggle_{{argosToShow.ArgosID}}',function() {
+        $( "#img_{{argosToShow.ArgosID}}" ).hide();});
+    });
+    $(document).ready(function() {
+      $('#speciesTable4').on('mousedown','#toggle_{{argosToShow.ArgosID}}',function() {
+        window.open('Bacteria/Argos/Depth_Graphs_{{sampleName}}_Argos/{{argosToShow.ArgosName}}.png', '_blank')});
+    });
+    </script>
+    {% endfor %}
+<!----------------------------------------Silva function js ---------------------------------------------->
+
+<!-----------------------------------GenusTableVir function js viruses---------------------------------->
+    {% for genusToShow in GenusTableVir %}
+    <script>
+    $(document).ready(function() {
+      $('#genusTableVir').on('mousedown','#toggle_{{genusToShow.GenusName}}',function() {
+        $('#defaulthidden').show(),
+        $('#speciesTable').DataTable().search("{{genusToShow.GenusName}}").draw();});
+    });
+    </script>
+    {% endfor %}
+<!-----------------------------------GenusTableFungi function js fungi---------------------------------->
+    {% for genusToShow in GenusTableFungi %}
+    <script>
+    $(document).ready(function() {
+      $('#genusTableFungi').on('mousedown','#toggle_{{genusToShow.GenusName}}',function() {
+        $('#defaulthidden1').show(),
+        $('#speciesTable1').DataTable().search("{{genusToShow.GenusName}}").draw();});
+    });
+    </script>
+    {% endfor %}
+<!-----------------------------------GenusTablePara function js parasite---------------------------------->
+    {% for genusToShow in GenusTablePara %}
+    <script>
+    $(document).ready(function() {
+      $('#genusTablePara').on('mousedown','#toggle_{{genusToShow.GenusName}}',function() {
+        $('#defaulthidden3').show(),
+        $('#speciesTable3').DataTable().search("{{genusToShow.GenusName}}").draw();});
+    });
+    </script>
+    {% endfor %}
+
+<!-----------------------------------GenusTable function js bacteria------------------------------------>
+
+    {% for genusToShow in GenusTable %}
+    <script>
+    $(document).ready(function() {
+      $('#genusTable').on('mousedown','#toggle_{{genusToShow.GenusName}}',function() {
+        $('#defaulthidden2').show(),
+        $('#speciesTable2').DataTable().search("{{genusToShow.GenusName}}").draw();});
+    });
+    </script>
+    {% endfor %}
+<!-----------------------------------GenusTableArgos function js Argos---------------------------------->
+    {% for genusToShow in GenusTableArgos %}
+    <script>
+    $(document).ready(function() {
+      $('#genusTableArgos').on('mousedown','#toggle_{{genusToShow.GenusName}}',function() {
+        $('#defaulthidden4').show(),
+        $('#speciesTable4').DataTable().search("{{genusToShow.GenusName}}").draw();});
+    });
+    </script>
+    {% endfor %}
+<!-----------------------------------GenusTableSilva function js Silva16S---------------------------------->
+
+<!------------------------------------------------------------------------------------------------------>
+    <script type="text/javascript">
+    function switchToRpm() {
+      var rawcolelem=document.getElementsByClassName("rawcolumns")
+      for(var i=0; i<rawcolelem.length; i++){
+        document.getElementsByClassName("rawcolumns")[i].style.display = "none";
+      }
+      for(var i=0; i<rawcolelem.length; i++){
+        document.getElementsByClassName("rpmcolumns")[i].style.display = "";
+      }
+    };
+    function switchToRaw() {
+      var rawcolelem=document.getElementsByClassName("rawcolumns")
+      for(var i=0; i<rawcolelem.length; i++){
+        document.getElementsByClassName("rawcolumns")[i].style.display = "";
+      }
+      for(var i=0; i<rawcolelem.length; i++){
+        document.getElementsByClassName("rpmcolumns")[i].style.display = "none";
+      }
+    };
+    </script>
+  </head>
+<!----------------------------------- Body de page ------------------------------------>
+  <body>
+    <div class="container">
+      <img src="https://upload.wikimedia.org/wikipedia/fr/8/81/Logo_AP-H%C3%B4pitaux_de_Paris.gif" style="float: right; width: 300px;">
+      <h1><u style="color: #1079BF;">Sample : {{sampleName}}</u></h1>
+      <h3>*Basic statistical classification</h3>
+      <table class="othertable" style="width: 40%; margin: 0 auto;">
+        <tr>
+           <th>Total Reads</th>
+           <th>% Alignment in the hg38</th>
+           <th>% Alignment in the MS2</th>
+           <th>% Alignment in the T1</th>
+           <th>Post-alignment</th>
+           <th>After Preprocess</th>
+           <th>Kraken Classified</th>
+        </tr>
+        <tr>
+           <td>{{Table1Fill.TotalReads}}</td>
+           <td>{{Table1Fill.PercentAlignment}}</td>
+           <td>{{Table1Fill.PercentAlignmentMS2}}</td>
+           <td>{{Table1Fill.PercentAlignmentT1}}</td>
+           <td>{{Table1Fill.NbReadsTotal}}</td>
+           <td>{{Table1Fill.Preprocess}}</td>
+           <td>{{Table1Fill.Classified}}</td>
+        </tr>
+      </table>
+    </br>
+    <table class="othertable" style="width: 40%; margin: 0 auto;">
+        <tr>
+           <th>Classified Reads</th>
+           <th>Raw count</th>
+           <th>Percentage</th>
+        </tr>
+        <tr>
+           <th>Human</th>
+           <td>{{Table1Fill.Human}}</td>
+           <td>{{Table1Fill.percentHuman}}</td>
+        </tr>
+        <tr>
+           <th>Bacterial</th>
+           <td>{{Table1Fill.Bacteria}}</td>
+           <td>{{Table1Fill.percentBacteria}}</td>
+        </tr>
+        <tr>
+           <th>Viral</th>
+           <td>{{Table1Fill.Viruses}}</td>
+           <td>{{Table1Fill.percentViruses}}</td>
+        </tr>
+        <tr>
+           <th>Fungi</th>
+           <td>{{Table1Fill.Fungi}}</td>
+           <td>{{Table1Fill.percentFungi}}</td>
+        </tr>
+        <tr>
+           <th>Parasite</th>
+           <td>{{Table1Fill.Parasite}}</td>
+           <td>{{Table1Fill.percentParasite}}</td>
+        </tr>
+      </table>
+      </br>
+
+<!----------------------------------- Viruses ------------------------------------>
+      <h3 style="color: #5DADE2;">Viruses</h3>
+      <table id="genusTableVir" class="display">
+        <thead>
+          <tr>
+            <th style="text-align:center;">Genus Name</th>
+            <th style="text-align:center;border-left: 1px solid;">Sample Reads</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for genusToShow in GenusTableVir %}
+        <tr>
+          <th><div id="toggle_{{genusToShow.GenusName}}">{{genusToShow.GenusName}}</div></th>
+          <td style="border-left: 1px solid;">{{genusToShow.ReadsSample}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class="container" id="defaulthidden">
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRaw()" id="rpmbutton">Raw Count</button>
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRpm()" id="rpmbutton">RPM</button>
+        <table id="speciesTable" class="display" style="width:100%;">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="3" style="text-align:center;border-left: 1px solid;">Sample</th>
+              <th style="display:none;"></th>
+              <th style="display:none;"></th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Species Name</th>
+               <th class="rawcolumns" style="border-left: 1px solid;">Verified Reads</th>
+               <!--<th class="rawcolumns">Kraken</th>-->
+               <th class="rpmcolumns" style="border-left: 1px solid;display:none;">Verified Reads</th>
+               <!--<th class="rpmcolumns" style="display:none;">Kraken</th>-->
+               <th>Coverage %</th>
+               <th style="display:none;">Score</th>
+               <th style="display:none;">Genus</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for virusToShow in listOfVirusesToShow %}
+          <tr>
+             <th><div id="toggle_{{virusToShow.VirusID}}">{{virusToShow.VirusName}}</div></th>
+             <td class="rawcolumns" style="border-left: 1px solid;"><a href="Viruses/{{sampleName}}fasta/{{virusToShow.VirusID}}.fasta" download="{{virusToShow.VirusName}}.fasta">{{virusToShow.ConservedReads}}</a></td>
+             <!--<td class="rawcolumns">{{virusToShow.NotConservedReads}}</td>-->
+             <td class="rpmcolumns" style="border-left: 1px solid;display:none;">{{virusToShow.ConservedRPM}}</td>
+             <!--<td class="rpmcolumns" style="display:none;">{{virusToShow.NotConservedRPM}}</td>-->
+             <td>{{virusToShow.PercentCoverage}}</td>
+             <td style="display:none;">{{virusToShow.Score}}</td>
+             <td style="display:none;">{{virusToShow.Genus}}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% for virusToShow in listOfVirusesToShow %}
+        <div id="img_{{virusToShow.VirusID}}" style="display:none;position:relative;"><img style="border:solid 5px black;" src="Viruses/Depth_Graphs_{{sampleName}}_Viruses/{{virusToShow.VirusName}}.png" alt=""></div>
+      {% endfor %}
+      </br>
+<!----------------------------------- Fungi ------------------------------------>
+      <h3 style="color: #5DADE2;">Fungi</h3>
+      <table id="genusTableFungi" class="display">
+        <thead>
+          <tr>
+            <th style="text-align:center;">Genus Name</th>
+            <th style="text-align:center;border-left: 1px solid;">Sample Reads</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for genusToShow in GenusTableFungi %}
+        <tr>
+          <th><div id="toggle_{{genusToShow.GenusName}}">{{genusToShow.GenusName}}</div></th>
+          <td style="border-left: 1px solid;">{{genusToShow.ReadsSample}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class="container" id="defaulthidden1">
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRaw()" id="rpmbutton">Raw Count</button>
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRpm()" id="rpmbutton">RPM</button>
+        <table id="speciesTable1" class="display" style="width:100%;">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="4" style="text-align:center;border-left: 1px solid;">Sample</th>
+              <th style="display:none;"></th>
+              <th style="display:none;"></th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Species Name</th>
+               <th class="rawcolumns" style="border-left: 1px solid;">Verified Reads</th>
+               <th class="rpmcolumns" style="border-left: 1px solid;display:none;">Verified Reads</th>
+               <th>Coverage %</th>
+               <th>Number of contigs</th>
+               <th>Total number of contigs</th>
+               <th style="display:none;">Score</th>
+               <th style="display:none;">Genus</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for fungiToShow in listOfFungiToShow %}
+          <tr>
+             <th><div id="toggle_{{fungiToShow.FungiID}}">{{fungiToShow.FungiName}}</div></th>
+             <td class="rawcolumns" style="border-left: 1px solid;"><a href="Fungi/{{sampleName}}fasta/{{fungiToShow.FungiID}}.fasta" download="{{fungiToShow.FungiName}}.fasta">{{fungiToShow.ConservedReads}}</a></td>
+             <td class="rpmcolumns" style="border-left: 1px solid;display:none;">{{fungiToShow.ConservedRPM}}</td>
+             <td>{{fungiToShow.PercentCoverage}}</td>
+             <td>{{fungiToShow.NbrContigs}}</td>
+             <td>{{fungiToShow.TotalNbrContigs}}</td>
+             <td style="display:none;">{{fungiToShow.Score}}</td>
+             <td style="display:none;">{{fungiToShow.Genus}}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% for fungiToShow in listOfFungiToShow %}
+        <div id="img_{{fungiToShow.FungiID}}" style="display:none;position:relative;"><img style="border:solid 5px black;" src="Fungi/Depth_Graphs_{{sampleName}}_Fungi/{{fungiToShow.FungiName}}.png" alt=""></div>
+      {% endfor %}
+      </br>
+
+<!----------------------------------- Parasite ------------------------------------>
+      <h3 style="color: #5DADE2;">Parasite</h3>
+      <table id="genusTablePara" class="display">
+        <thead>
+          <tr>
+            <th style="text-align:center;">Genus Name</th>
+            <th style="text-align:center;border-left: 1px solid;">Sample Reads</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for genusToShow in GenusTablePara %}
+        <tr>
+          <th><div id="toggle_{{genusToShow.GenusName}}">{{genusToShow.GenusName}}</div></th>
+          <td style="border-left: 1px solid;">{{genusToShow.ReadsSample}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class="container" id="defaulthidden3">
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRaw()" id="rpmbutton">Raw Count</button>
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRpm()" id="rpmbutton">RPM</button>
+        <table id="speciesTable3" class="display" style="width:100%;">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="4" style="text-align:center;border-left: 1px solid;">Sample</th>
+              <th style="display:none;"></th>
+              <th style="display:none;"></th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Species Name</th>
+               <th class="rawcolumns" style="border-left: 1px solid;">Verified Reads</th>
+               <th class="rpmcolumns" style="border-left: 1px solid;display:none;">Verified Reads</th>
+               <th>Coverage %</th>
+               <th>Number of contigs</th>
+               <th>Total number of contigs</th>
+               <th style="display:none;">Score</th>
+               <th style="display:none;">Genus</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for parasiteToShow in listOfParasiteToShow %}
+          <tr>
+             <th><div id="toggle_{{parasiteToShow.ParasiteID}}">{{parasiteToShow.ParasiteName}}</div></th>
+             <td class="rawcolumns" style="border-left: 1px solid;"><a href="Parasite/{{sampleName}}fasta/{{parasiteToShow.ParasiteID}}.fasta" download="{{parasiteToShow.ParasiteName}}.fasta">{{parasiteToShow.ConservedReads}}</a></td>
+             <td class="rpmcolumns" style="border-left: 1px solid;display:none;">{{parasiteToShow.ConservedRPM}}</td>
+             <td>{{parasiteToShow.PercentCoverage}}</td>
+             <td>{{parasiteToShow.NbrContigs}}</td>
+             <td>{{parasiteToShow.TotalNbrContigs}}</td>
+             <td style="display:none;">{{parasiteToShow.Score}}</td>
+             <td style="display:none;">{{parasiteToShow.Genus}}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% for parasiteToShow in listOfParasiteToShow %}
+        <div id="img_{{parasiteToShow.ParasiteID}}" style="display:none;position:relative;"><img style="border:solid 5px black;" src="Parasite/Depth_Graphs_{{sampleName}}_Parasite/{{parasiteToShow.ParasiteName}}.png" alt=""></div>
+      {% endfor %}
+      </br>
+<!---------------------------------------------------- Bacteria metaphlan  ------------------------------------------------->
+      <h3 style="color: #5DADE2;">Bacteria</h3>
+      <h4>Metaphlan</h4>
+      <table id="genusTable" class="display">
+        <thead>
+          <tr>
+            <th style="text-align:center;">Genus Name</th>
+            <th style="text-align:center;border-left: 1px solid;">Sample Reads</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for genusToShow in GenusTable %}
+        <tr>
+          <th><div id="toggle_{{genusToShow.GenusName}}">{{genusToShow.GenusName}}</div></th>
+          <td style="border-left: 1px solid;">{{genusToShow.ReadsSample}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      </br>
+      <div class="container" id="defaulthidden2">
+      <table id="speciesTable2" class="display" style="width:100%;">
+        <thead>
+          <tr>
+            <th></th>
+            <th colspan="2" style="text-align:center;border-left: 1px solid;">Sample</th>
+            <th style="border-left: 1px solid;"></th>
+          </tr>
+          <tr>
+             <th style="text-align:center;">Species Name</th>
+             <th style="border-left: 1px solid;">Verified Reads</th>
+             <th>Unique marker hit</th>
+             <th style="border-left: 1px solid;">Total number of markers</th>
+             <th>Genus</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for bacteriaToShow in listOfBacteriaToShow %}
+        <tr>
+          <th>{{bacteriaToShow.MetaphlanName}}</th>
+          <td style="border-left: 1px solid;"><a href="Bacteria/Metaphlan/{{sampleName}}fasta/{{bacteriaToShow.MetaphlanID}}.fasta" download="{{bacteriaToShow.MetaphlanName}}.fasta">{{bacteriaToShow.ConservedReads}}</a></td>
+          <td>{{bacteriaToShow.UniqHit}}</td>
+          <td style="border-left: 1px solid;">{{bacteriaToShow.NbTargets}}</td>
+          <th>{{bacteriaToShow.MetaphlanGenus}}</th>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+<!------------------------------------------- Argos ---------------------------------------------------->
+      <h4>FDA-Argos</h4>
+      <table id="genusTableArgos" class="display">
+        <thead>
+          <tr>
+            <th style="text-align:center;">Genus Name</th>
+            <th style="text-align:center;border-left: 1px solid;">Sample Reads</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for genusToShow in GenusTableArgos %}
+        <tr>
+          <th><div id="toggle_{{genusToShow.GenusName}}">{{genusToShow.GenusName}}</div></th>
+          <td style="border-left: 1px solid;">{{genusToShow.ReadsSample}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class="container" id="defaulthidden4">
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRaw()" id="rpmbutton">Raw Count</button>
+        <button style="position:relative;bottom:5px;" class="btn btn-primary" onClick="switchToRpm()" id="rpmbutton">RPM</button>
+        <table id="speciesTable4" class="display" style="width:100%;">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="3" style="text-align:center;border-left: 1px solid;">Sample</th>
+              <th style="display:none;"></th>
+              <th style="display:none;"></th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Species Name</th>
+               <th class="rawcolumns" style="border-left: 1px solid;">Verified Reads</th>
+               <!--<th class="rawcolumns">Kraken</th>-->
+               <th class="rpmcolumns" style="border-left: 1px solid;display:none;">Verified Reads</th>
+               <!--<th class="rpmcolumns" style="display:none;">Kraken</th>-->
+               <th>Coverage %</th>
+               <th style="display:none;">Score</th>
+               <th style="display:none;">Genus</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          {% for argosToShow in listOfArgosToShow %}
+          <tr>
+             <th><div id="toggle_{{argosToShow.ArgosID}}">{{argosToShow.ArgosName}}</div></th>
+             <td class="rawcolumns" style="border-left: 1px solid;"><a href="Bacteria/Argos/{{sampleName}}fasta/{{argosToShow.ArgosID}}.fasta" download="{{argosToShow.ArgosName}}.fasta">{{argosToShow.ConservedReads}}</a></td>
+             <!--<td class="rawcolumns">{{argosToShow.NotConservedReads}}</td>-->
+             <td class="rpmcolumns" style="border-left: 1px solid;display:none;">{{argosToShow.ConservedRPM}}</td>
+             <!--<td class="rpmcolumns" style="display:none;">{{argosToShow.NotConservedRPM}}</td>-->
+             <td>{{argosToShow.PercentCoverage}}</td>
+             <td style="display:none;">{{argosToShow.Score}}</td>
+             <td style="display:none;">{{argosToShow.Genus}}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% for argosToShow in listOfArgosToShow %}
+        <div id="img_{{argosToShow.ArgosID}}" style="display:none;position:relative;"><img style="border:solid 5px black;" src="Bacteria/Argos/Depth_Graphs_{{sampleName}}_Argos/{{argosToShow.ArgosName}}.png" alt=""></div>
+      {% endfor %}
+      </br>
+<!------------------------------------------- Silva ---------------------------------------------------->
+      <div>
+      
+       <span>&#10003;</span>
+      
+      </div>
+<!------------------------------------------- Silva final ---------------------------------------------------->
+    </div>
+    </div>
+  </body>
+</html>
