@@ -1,13 +1,12 @@
 # MetaG4K_pipeline
-> * Métagenomique clinique *
+> * Clinical Metagenomics *
 
 ---
 
 ## 🧩 Description
 
-Développé en Snakemake, ce pipeline prend en charge l'analyse métagénomique complète de données de séquençage Illumina short reads. Il réalise une double analyses,  classification et l'assignation taxonomique, puis synthétise les résultats dans un rapport HTML clair et ciblé. L'ordonnancement des tâches est optimisé grâce à l'utilisation d'un cluster Godocker.  
-
+Written in Snakemake, this pipeline supports the complete metagenomic analysis of Illumina short-read sequencing data. It performs dual analyses — classification and taxonomic assignment — and then synthesizes the results into a clear and concise HTML report. Task scheduling is optimized through the use of the Godocker cluster.
 ---
 
-## 📁  Structure du projet
+## 📁  Project Structure
 ...
