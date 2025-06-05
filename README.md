@@ -9,5 +9,5 @@ Développé en Snakemake, ce pipeline prend en charge l'analyse métagénomique 
 
 ---
 
-## 📁 Structure du projet
+## 📁  Structure du projet
 ...
