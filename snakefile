@@ -6,6 +6,7 @@ rulePath = config["general_path"]["RULE_PATH"]
 workdir:  config["general_path"]["OUTPUT_PATH"]
 output_path = config["general_path"]["OUTPUT_PATH"]
 
+
 #======================== RULES ==============================#
  
 include: rulePath+"/iget_samples_rule"
