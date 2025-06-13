@@ -1,5 +1,7 @@
 import os
 
+
+
 #=============== CONFIG FILES AND GENERAL PATHS ==================#
 
 rulePath = config["general_path"]["RULE_PATH"]
