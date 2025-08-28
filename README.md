@@ -20,12 +20,10 @@
 - [4. Prerequisites and Installation](#-prerequisites-and-installation)
 - [5. Configuration](#-configuration)
 - [6. Usage](#-usage)
-- [7. Execution](#-execution)
-- [8. Error Handling](#-error-handling)
-- [9. Output Report](#-output-report)
-- [10. Internal Architecture](#-internal-architecture)
-- [11. Deployment](#-deployment)
-- [12. License](#-license)
+- [7. Error Handling](#-error-handling)
+- [8. Output Report](#-output-report)
+- [9. Deployment](#-deployment)
+- [10. License](#-license)
 
 ---
 
@@ -131,7 +129,7 @@ bash commandLine.sh
 bash commandLine_rerun-incomplete.sh
 ```
 
-## 🛑 8. Error Handling
+## 🛑 7. Error Handling
 Common errors:
 
 * Incorrectly named FASTQ files: must follow the format _R1_001.fastq.gz or _R1.fastq.gz
@@ -143,7 +141,7 @@ Diagnostics:
 * Via Go-docker: search for the job by ID → god.err file
 * On the command line: ```bash godfile download <job-id> god.err```
 
-## 📊 9. Output Report
+## 📊 8. Output Report
 
 At the end of the pipeline, an HTML report is generated in:
 
@@ -159,7 +157,7 @@ It contains :
 > The pipeline is designed to be modular, reproducible, and traceable.
 
 
-## 🌐 11. Deployment
+## 🌐 9. Deployment
 
 * In production: via  [G-route]()
 * In development: local execution or on the Moabi cluster
@@ -167,7 +165,7 @@ It contains :
 
 
 
-## 📄 12. License
+## 📄 10. License
 
 Distributed under the MIT License.
 
