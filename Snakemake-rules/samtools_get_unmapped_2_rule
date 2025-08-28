@@ -1,0 +1,12 @@
+rule samtools_get_unmapped_2:
+    input:
+        "{prefix}/{sample}/{sample}_mergeBam.bam"
+    output:
+        R1 = temp("{prefix}/{sample}/{sample}_not_hg38_merge.R1.fastq.gz"),
+        R2 = temp("{prefix}/{sample}/{sample}_not_hg38_merge.R2.fastq.gz")
+    log:
+        "{prefix}/{sample}/logs/{sample}_samtools_get_unmapped_2.log"
+    params:
+        samtools_get_unmapped_2_options = config["samtools_get_unmapped_2"]["OPTIONS"]
+    run:
+        shell('samtools fastq {params.samtools_get_unmapped_2_options} -1 {output.R1} -2 {output.R2} -0 /dev/null -s /dev/null {input} 2>&1 | tee -a {log}')

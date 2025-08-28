@@ -1,0 +1,11 @@
+rule samtools_flagstat:
+    input:
+        "{prefix}/{sample}/{sample}.bam"
+    output:
+        temp("{prefix}/{sample}/{sample}.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}_samtools_flagstat.log"
+    params:
+        samtools_flagstat_options = config["samtools_flagstat"]["OPTIONS"]
+    shell:
+        "docker_wrapper -c \'samtools flagstat {input}\' -o {output} {params.samtools_flagstat_options} 2>&1 | tee -a {log}"

@@ -1,0 +1,12 @@
+rule iget_listTaxId:
+        output:
+                all = temp("{prefix}/{sample}/{taxkingdom}/{taxkingdom}_taxids.txt")
+                #all = temp("{prefix}/{sample}/{taxkingdom}/{taxkingdom}_03032025_taxids.txt")
+        log:
+                temp("{prefix}/{sample}/{taxkingdom}_iget_listTaxIds.log")
+        params:
+                listTaxId = config["listTaxId"]["LISTTAXID"]
+        shell:
+                'cp {params.listTaxId}/{wildcards.taxkingdom}_taxids.txt {output.all}'
+                #'cp {params.listTaxId}/{wildcards.taxkingdom}_03032025_taxids.txt {output.all}'
+       

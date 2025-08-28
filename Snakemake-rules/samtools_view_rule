@@ -1,0 +1,9 @@
+rule samtools_view:
+    input:
+        "{prefix}/{sample}/{sample}.bam"
+    output:
+        temp("{prefix}/{sample}/{sample}_unmapped.bam")
+    log:
+        "{prefix}/{sample}/logs/{sample}_unmapped.log"
+    shell:
+        'docker_wrapper -c \"samtools view -b -f 4 {input} -o {output} \" 2>&1 | tee -a {log}'

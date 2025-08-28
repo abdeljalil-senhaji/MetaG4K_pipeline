@@ -1,0 +1,18 @@
+rule coverage_Fungi_Parasite_info:
+    input:
+        count = "{prefix}/{sample}/{fungi_parasite}/{sample}_{fungi_parasite}_NameVirFunPar.txt",
+        extractInfo = "{prefix}/{sample}/{fungi_parasite}/{sample}_{fungi_parasite}_extractInfo_vir_fun_par.txt"
+    output:
+        allInfoCovrage = "{prefix}/{sample}/{fungi_parasite}/{sample}_{fungi_parasite}_allInfoCovrage_test.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_{fungi_parasite}_allInfoCovrage.log"
+    params:
+        script = config["script_pip"]["script_coverage_Fungi_Parasite_info"],
+        options = config["coverage_Fungi_Parasite_info"]["OPTIONS"],
+        sqlite = config["general_informations"]["SQLITE"],
+        list_contigs = lambda w: config["general_informations"]["LIST_CONTIGS-{}".format(w.fungi_parasite)]
+    run:
+        if (os.stat(input.count).st_size == 0 and os.stat(input.extractInfo).st_size == 0):
+          shell("touch {output.allInfoCovrage}")
+        else:
+          shell('python3 {params.script} -e {input.extractInfo} -g {input.count} -m 5 -o {output.allInfoCovrage} -n {params.sqlite} -c {params.list_contigs} | tee -a {log}')

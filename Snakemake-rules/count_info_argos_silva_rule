@@ -1,0 +1,14 @@
+rule count_info_argos_silva:
+    input:
+        inputPath="{prefix}/{sample}/Bacteria/{argosSilva}/{sample}_{argosSilva}_extractInfo_blast.txt"
+    output:
+        outputPath=temp("{prefix}/{sample}/Bacteria/{argosSilva}/{sample}_{argosSilva}_count.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}_{argosSilva}_count.log"
+    params:
+        script = config["script_pip"]["count"]
+    run:
+       if (os.stat(input.inputPath).st_size == 0 ):
+         shell("touch {output.outputPath}")
+       else:
+         shell('bash {params.script} -i {input.inputPath} -o {output.outputPath}  | tee -a {log}')

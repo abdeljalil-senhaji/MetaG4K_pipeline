@@ -1,0 +1,8 @@
+rule iget_db_bacteria:
+        input:
+                "{prefix}/{sample}/Bacteria/{sample}_seqfa.fasta"
+        output:
+                temp("{prefix}/{sample}/Bacteria/{db_names}/{sample}_bacteria_seqfa.fasta")
+        shell:
+                'cp {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.sample}_seqfa.fasta {output}'
+

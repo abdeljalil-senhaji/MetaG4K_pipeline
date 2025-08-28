@@ -1,0 +1,23 @@
+rule reportHtml:
+    input:
+        info = "{prefix}/{sample}/{sample}.info.txt",
+        stats = "{prefix}/{sample}/{sample}.txt",
+        statsT1 = "{prefix}/{sample}/{sample}_T1.txt",
+        statsMS2 = "{prefix}/{sample}/{sample}_MS2.txt",
+        count = "{prefix}/{sample}/Bacteria/Metaphlan/{sample}_Metaphlan_NameBact.txt",
+        count_Viruses =  "{prefix}/{sample}/Viruses/{sample}_Viruses_allInfoCovrage.txt",
+        count_Fungi =  "{prefix}/{sample}/Fungi/{sample}_Fungi_allInfoCovrage_test.txt",
+        count_Parasite =  "{prefix}/{sample}/Parasite/{sample}_Parasite_allInfoCovrage_test.txt",
+        count_Argos = "{prefix}/{sample}/Bacteria/Argos/{sample}_Argos_allInfoCovrage.txt"
+    output:
+        html = "{prefix}/{sample}/{sample}.html"
+    log:
+        "{prefix}/{sample}/logs/{sample}_html_report.log"
+    params:
+        html_report =  config["general_informations"]["HTML_TEMPLATES"],
+        script = config["script_pip"]["html_report"]
+    run:
+        if (os.stat(input.info).st_size == 0 and os.stat(input.count).st_size == 0 and os.stat(input.count_Viruses).st_size == 0 and os.stat(input.count_Fungi).st_size == 0 and os.stat(input.count_Parasite).st_size == 0 and os.stat(input.count_Argos).st_size == 0 and os.stat(input.count_count_Silva16S).st_size == 0):
+          shell("touch {output.html}")
+        else:
+          shell('python3 {params.script} -i {input.info} -s {input.stats} -s1 {input.statsT1} -s2 {input.statsMS2} -o {output.html} -t {params.html_report} | tee -a {log}')

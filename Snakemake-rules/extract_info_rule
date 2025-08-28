@@ -1,0 +1,12 @@
+rule extract_info:
+    input:
+        inputPath="{prefix}/{sample}/{bac_kingdom}/{sample}_{bac_kingdom}_blast.txt"
+    output:
+        outputPath= "{prefix}/{sample}/{bac_kingdom}/{sample}_{bac_kingdom}_extractInfo_vir_fun_par.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_{bac_kingdom}_extractInfo_vir_fun_par.log"
+    params:
+        script = config["script_pip"]["extract_info_blat"]
+        #sqlite = config["general_informations"]["SQLITE"]
+    shell:
+        '{params.script} -i {input.inputPath} -o {output.outputPath}  | tee -a {log}'

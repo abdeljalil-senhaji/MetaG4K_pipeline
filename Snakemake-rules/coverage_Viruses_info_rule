@@ -1,0 +1,17 @@
+rule coverage_Viruses_info:
+    input:
+        count1 = "{prefix}/{sample}/{Viruses}/{sample}_{Viruses}_NameVirFunPar.txt",
+        extractInfo1 = "{prefix}/{sample}/{Viruses}/{sample}_{Viruses}_extractInfo_vir_fun_par.txt"
+    output:
+        allInfoCovrage2 = "{prefix}/{sample}/{Viruses}/{sample}_{Viruses}_allInfoCovrage.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_{Viruses}_allInfoCovrage.log"
+    params:
+        script = config["script_pip"]["script_coverage_info"],
+        options = config["coverage_Viruses_info"]["OPTIONS"],
+        sqlite = config["general_informations"]["SQLITE"]
+    run:
+        if (os.stat(input.count1).st_size == 0 and os.stat(input.extractInfo1).st_size == 0):
+          shell("touch {output.allInfoCovrage2}")
+        else:
+          shell('python3 {params.script} -e {input.extractInfo1} -g {input.count1} -m 5 -o {output.allInfoCovrage2} -n {params.sqlite} | tee -a {log}')

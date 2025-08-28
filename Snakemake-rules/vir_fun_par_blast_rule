@@ -1,0 +1,14 @@
+rule vir_fun_par_blast:
+    input:
+        "{prefix}/{sample}/{bac_kingdom}/{sample}_seqfa.fasta"
+    output:
+        temp("{prefix}/{sample}/{bac_kingdom}/{sample}_{bac_kingdom}_blast.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}_Bacteria_blast.log"
+    params:
+        blast_options = config["blast"]["OPTIONS"],
+        blast_db = lambda w: config["general_informations"]["DATABASE-{}".format(w.bac_kingdom)]
+    shell:
+        'blastn -db {params.blast_db} {params.blast_options} -query {input} >  {wildcards.prefix}/{wildcards.sample}/{wildcards.bac_kingdom}/{wildcards.sample}.blasttemp.txt | tee -a {log};\
+        tac {wildcards.prefix}/{wildcards.sample}/{wildcards.bac_kingdom}/{wildcards.sample}.blasttemp.txt | sed \'/0 hits/I,+3 d\' |tac > {output} | tee -a {log};\
+        rm {wildcards.prefix}/{wildcards.sample}/{wildcards.bac_kingdom}/{wildcards.sample}.blasttemp.txt'

@@ -1,0 +1,15 @@
+rule bacteria_blast:
+    input:
+        "{prefix}/{sample}/Bacteria/{dbnames}/{sample}_bacteria_seqfa.fasta"
+    output:
+        temp("{prefix}/{sample}/Bacteria/{dbnames}/{sample}_{dbnames}_blast.txt")
+    log:
+        "{prefix}/{sample}/logs/{sample}_{dbnames}_blast.log"
+    params:
+        blast_options = config["blast"]["OPTIONS"],
+        blast_db = lambda w: config["general_informations"]["DATABASE-{}".format(w.dbnames)]
+    shell:
+        'blastn -db {params.blast_db} {params.blast_options} -query {input} >  {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}.blasttemp.txt | tee -a {log};\
+        tac {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}.blasttemp.txt | sed \'/0 hits/I,+3 d\' |tac > {output} | tee -a {log};\
+        rm {wildcards.prefix}/{wildcards.sample}/Bacteria/{wildcards.dbnames}/{wildcards.sample}.blasttemp.txt'
+

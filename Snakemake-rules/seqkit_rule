@@ -1,0 +1,18 @@
+rule seqkit:
+    input:
+        readnames = "{prefix}/{sample}/{taxkingdom}/{sample}_readNames_list.txt",
+        clseqs1 = "{prefix}/{sample}/{sample}.clseqs_1.fastq",
+        clseqs2 = "{prefix}/{sample}/{sample}.clseqs_2.fastq"
+    output:
+        seqkit = temp("{prefix}/{sample}/{taxkingdom}/{sample}_seqfa.fasta")
+    log:
+        "{prefix}/{sample}/logs/{sample}_seqKit.log"
+    params:
+        script2 = config["script_pip"]["seqkit_recover"] 
+    #shell:
+        #'{params.script2} -a {input.clseqs1} -b {input.clseqs2} -c {input.readnames} -o {output} | tee -a {log}'
+    run:
+        if (os.stat(input.readnames).st_size == 0 and os.stat(input.clseqs1).st_size == 0 and os.stat(input.clseqs2).st_size == 0):
+          shell("touch {output.seqkit}")
+        else:
+          shell('{params.script2} -a {input.clseqs1} -b {input.clseqs2} -c {input.readnames} -o {output.seqkit} | tee -a {log}')

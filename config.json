@@ -1,0 +1,194 @@
+{
+    "description": "MetaG4kingdoms: This config file is designed to run pipeline.",
+    "author": "Abdeljalil SENHAJI RACHIK",
+    "general_path":
+    {
+        "RULE_PATH" : "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/Snakemake-rules",
+        "OUTPUT_PATH": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/output",
+        "IRODS_OUTPUT_PATH": ""
+    },
+
+    "general_informations":
+    {
+      "FASTA_FILE1": "/data/annotations/Human/hg38_no_alt/hg38_no_alt.fa",
+      "FASTA_FILE": "/data/annotations/Human/hg38_no_alt/hg38_no_alt.fa",
+      "FASTA_FILE_MS2": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/db/G_ref_T1_MS2/Escherichia_phageMS2.fasta",
+      "FASTA_FILE_T1": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/db/G_ref_T1_MS2/Escherichia_phageT1.fasta",
+      "DATABASE-Viruses": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/RefSeq_Viral/viral.1.genomic.gbff.fasta",
+      "DATABASE-Fungi": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/JGI_fungi/add_genome_ncbi_fungi_1kb.fasta",
+      "DATABASE-Parasite": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/Parasite_db/add_2strain_verified2_all_veu_worm1_plasmo_ncbi_1kb.fasta",
+      "DATABASE-Bacteria": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/metaphlan3/mpa_v31_CHOCOPhlAn_201901_update_50.fna",
+      "DATABASE-Metaphlan": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/metaphlan3/mpa_v31_CHOCOPhlAn_201901_update_50.fna",
+      "DATABASE-Argos": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/data_FDA_refseq/FDA_Argos_no_dup.genomic.fasta",
+      "DATABASE-Metaphlan_Genes": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/metaphlan3/totalCountofGenes_update.txt",
+      "other_KRAKEN2_DATABASE": "/data/annotations/Kraken2/nt_20231129",
+      "KRAKEN2_DATABASE": "/data/annotations/Kraken2/pluspf_20231009",
+      "SQLITE": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/NCBITaxa/.etetoolkit/taxa.sqlite",
+      "HTML_TEMPLATES": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/template",
+      "LIST_CONTIGS-Fungi": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/list_contigs_Fungi_Parasite/v1_Fungi_results_with_genre.csv",
+      "LIST_CONTIGS-Parasite": "/scratch/recherche/asenhaji/v7_pipMeta_4Kingdoms/db/list_contigs_Fungi_Parasite/v1_Parasite_results_with_genre.csv",
+      "PIPELINE": "MetaG4kingdoms",
+      "USER": "",
+      "MAIL": "",
+      "ID_OPERATION": "",
+      "ID_PIPELINE": "",
+      "TEAM_ID": "",
+      "GENOME_VERSION": "",
+      "GENOME_ID": "",
+      "PROJECT_NAME": "",
+      "HOSPIT": "",
+      "PANEL_NAME": "MetaG4kingdoms",
+      "PANEL_ID": "",
+      "ANALYSIS_NAME": "",
+      "SEQUENCER": "",
+      "TARGET_TYPE": "",
+      "INSERT_SIZE": "400",
+      "READ_LENGTH": "",
+      "REFERENCE_NAME": "hg_g1k_v37",
+      "REFERENCE_DATE": ""
+    },
+   "listTaxId":
+    {
+         "LISTTAXID": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/ListTaxIdV1"
+    },
+   "script_pip":
+    {
+         "RecoverReadnames": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/RecoverReadnames.py",
+         "seqkit_recover": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/seqkit_recover.sh",
+         "count_metaphlan": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/count_metaphlan.sh",
+         "count": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/count.sh",
+         "getNames_metaphlan": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/getNamesv3_metaphlan.py",
+         "getNamesv1": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/getNamesv4.py",
+         "infofile": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/info_file.py",
+         "extract_info_blat": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/extract_info_blast.py",
+         "script_coverage_info": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/coverage_graph_info_v1.py",
+         "script_coverage_Fungi_Parasite_info": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/coverage_graph_Fungi_Parasite_info_v8.py",
+         "create_tab_info_contigs": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/create_tab_info_contigs.py",
+         "html_report": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/script/htmlreport.py"
+    },
+   "samples":
+    {
+         "path": "/scratch/recherche/asenhaji/v10_pipMeta_4Kingdoms/data"
+    },
+   "iget_samples":
+    {
+        "OPTIONS": ""
+    },
+   "dedupe":
+    {
+    "OPTIONS": "qin=33 threads=10"
+    },
+   "trimmomatic":
+    {
+    "OPTIONS": "AVGQUAL:20 MINLEN:50",
+    "TYPE": "PE -threads 3"
+    },
+    "bwa_mem": {
+        "OPTIONS": "-t 8 -M"
+    },
+    "samtools_process": {
+        "OPTIONS": ""
+    },
+    "samtools_flagstat": {
+        "OPTIONS": ""
+    },
+    "samtools_get_unmapped": {
+        "OPTIONS":  "-N"
+    },
+    "bwa_mem_T1": {
+        "OPTIONS": "-t 8 -M"
+    },
+    "samtools_process_T1": {
+        "OPTIONS": ""
+    },
+    "samtools_flagstat_T1": {
+        "OPTIONS": ""
+    },
+    "bwa_mem_MS2": {
+        "OPTIONS": "-t 8 -M"
+    },
+    "samtools_process_MS2": {
+        "OPTIONS": ""
+    },
+    "samtools_flagstat_MS2": {
+        "OPTIONS": ""
+    },
+    "samtools_merge": {
+        "OPTIONS": ""
+    },
+    "samtools_get_unmapped_2": {
+        "OPTIONS":  "-N"
+    },
+   "kraken2": {
+        "OPTIONS": "--gzip-compressed --threads 3 --paired"
+    },
+    "iget_listTaxId":{
+        "OPTIONS": ""
+    },
+    "iget_readNames_list": {
+        "OPTIONS": ""
+    },
+    "seqkit": {
+        "OPTIONS": ""
+    },
+    "blast": {
+        "OPTIONS": "-task megablast -num_threads 8 -evalue 10e-10 -outfmt \"7 qseqid sseqid sstart send evalue bitscore slen staxids\" -max_target_seqs 1 -max_hsps 1"
+    },
+    "iget_db_bacteria": {
+        "OPTIONS": ""
+    },
+    "extract_info_bact": {
+        "OPTIONS": ""
+    },
+    "extract_info": {
+        "OPTIONS": ""
+    },
+    "get_fasta_final":
+    {
+    "OPTIONS": ""
+    },
+    "get_fasta_final_bac":
+    {
+    "OPTIONS": ""
+    },
+    "vir_fun_par_blast": {
+        "OPTIONS": "-task megablast -num_threads 8 -evalue 10e-10 -outfmt \"7 qseqid sseqid sstart send evalue bitscore slen staxids\" -max_target_seqs 1 -max_hsps 1"
+    },
+    "create_tab_info_contigs" :
+    {
+    "OPTIONS": ""
+    },
+    "count_info_metaphlan": {
+        "OPTIONS": ""
+    },
+    "getNames_metaphlan": {
+        "OPTIONS": ""
+    },
+    "count_info": {
+        "OPTIONS": ""
+    },
+    "getNames_argos_silva": {
+        "OPTIONS": ""
+    },
+    "count_info_argos_silva": {
+        "OPTIONS": ""
+    },
+    "getNames": {
+        "OPTIONS": ""
+    },
+    "coverage_Argos_info": {
+        "OPTIONS" : ""
+    },
+    "coverage_Viruses_info": {
+        "OPTIONS" : ""
+    },
+    "coverage_Fungi_Parasite_info": {
+        "OPTIONS" : ""
+    },
+    "infofile": {
+       "OPTIONS" : ""
+    },
+    "reportHtml": {
+       "OPTIONS" : ""
+    }
+}
