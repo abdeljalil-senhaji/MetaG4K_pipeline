@@ -6,14 +6,14 @@
 
 > **Clinical Metagenomics Pipeline**
 
-## 🧩 Description
+##  Description
 
 > **A robust Snakemake pipeline for clinical metagenomic analysis**  
 > Written in Snakemake, this pipeline supports the complete metagenomic analysis of Illumina short-read sequencing data. It performs dual analyses — classification and taxonomic assignment — and synthesizes the results into a clear and concise HTML report. Task scheduling is optimized through the use of the Godocker cluster.
 
 ---
 
-## 📌 Table of Contents
+## Table of Contents
 - [1. Context and Objectives](#-context-and-objectives)
 - [2. Key Features](#-key-features)
 - [3. Project Structure](#-project-structure)
@@ -28,7 +28,7 @@
 
 ---
 
-## 🎯 1. Context and Objectives
+##  1. Context and Objectives
 
 **MetaG4K_pipeline** is a bioinformatics pipeline designed for **high-throughput clinical metagenomics**. It is specifically optimized to:
 - Identify microorganisms present in a sample (bacteria, viruses, fungi, parasites),
@@ -39,7 +39,7 @@ Built on **Snakemake**, it runs on a cluster (Godocker) and ensures full traceab
 
 ---
 
-## ✨ 2. Key Features
+## 2. Key Features
 
 - ✅ **Multi-kingdom detection**: Bacteria, Viruses, Fungi, Parasite  
 - ✅ **Rigorous filtering**: removal of human reads, duplicates, and short sequences  
@@ -50,7 +50,7 @@ Built on **Snakemake**, it runs on a cluster (Godocker) and ensures full traceab
 
 ---
 
-## 📁 3. Project Structure
+##  3. Project Structure
 
 ```bash
 MetaG4K_pipeline/
@@ -71,13 +71,13 @@ MetaG4K_pipeline/
 ├── script_git.sh                 # Git management scripts (optional)
 └── README.md                     # Project documentation
 ```
-## 💡 Note
+##  Note
 
 The `data/`, `results/`, and `bases/` directories must be created or configured according to your environment.  The `bases/` directory is implied by the requirement for pre-downloaded Kraken2 and BLAST databases, and should contain those databases.
 
 ---
 
-## ⚙️ 4. Prerequisites and Installation
+##  4. Prerequisites and Installation
 
 ### Prerequisites
 
@@ -97,7 +97,7 @@ cd MetaG4K_pipeline
 Configure the paths in config.json according to your environment.
 
 
-## 🛠️ 5. Configuration
+##  5. Configuration
 
 The config.json file centralizes all parameters:
 ```bash
@@ -113,7 +113,7 @@ The config.json file centralizes all parameters:
 }
 ```
 
-## ▶️ 6. Usage
+##  6. Usage
 
 On the command line (Moabi):
 ```bash
@@ -130,7 +130,7 @@ bash commandLine.sh
 bash commandLine_rerun-incomplete.sh
 ```
 
-## 🛑 7. Error Handling
+##  7. Error Handling
 Common errors:
 
 * Incorrectly named FASTQ files: must follow the format _R1_001.fastq.gz or _R1.fastq.gz
@@ -142,7 +142,7 @@ Diagnostics:
 * Via Go-docker: search for the job by ID → god.err file
 * On the command line: ```bash godfile download <job-id> god.err```
 
-## 📊 8. Output Report
+## 8. Output Report
 
 At the end of the pipeline, an HTML report is generated in:
 
@@ -150,15 +150,15 @@ At the end of the pipeline, an HTML report is generated in:
 
 It contains :
 
-* 📈 Mapping and classification statistics
-* 🌳 Interactive taxonomic tree
-* 📋 Tables of dominant taxa by kingdom
-* 📁 Links to extracted contigs and reads
+*  Mapping and classification statistics
+*  Interactive taxonomic tree
+*  Tables of dominant taxa by kingdom
+*  Links to extracted contigs and reads
 
 > The pipeline is designed to be modular, reproducible, and traceable.
 
 
-## 🌐 9. Deployment
+##  9. Deployment
 
 * In production: via  [G-route]()
 * In development: local execution or on the Moabi cluster
@@ -166,7 +166,7 @@ It contains :
 
 
 
-## 📄 10. License
+## 10. License
 
 Distributed under the MIT License.
 
